@@ -23,7 +23,6 @@ class User:
         if self.money - loss < 0:
             return False
         else:
-            print(loss)
             self.money -= loss
             return True
         
@@ -66,7 +65,6 @@ class Market:
                 break
                 
         if exist:
-            user.expense(exist.price)
             if item.type == "Tools":
                 if user.expense(exist.price):
                     item.soldOut = True # Tool only can be bought once
@@ -75,21 +73,20 @@ class Market:
                     print("Not enough money")
                 
             elif item.type == "Seeds":
-                pass
-                # qty = int(input("How many seeds do you want to buy?"))
-                # if user.expense(exist.price * qty):
-                #     user.addBackpack([exist.name, qty])
-                # else:
-                #     print("Not enough money")
+                qty = int(input("How many seeds do you want to buy?"))
+                if user.expense(exist.price * qty):
+                    user.addBackpack([exist.name, qty])
+                else:
+                    print("Not enough money")
 
-class MarketItems: # successful
+class MarketItems: # Succesful
     def __init__(self, name, price, type):
         self.name = name
         self.price = price
         self.type = type
         self.soldOut = False
 
-class UpcomingItems: # successful
+class UpcomingItems: # Succesful
     def __init__(self):
         # (name, price, type, unlockedAtDay)
         self.upcoming = [
@@ -108,7 +105,7 @@ class UpcomingItems: # successful
                 marketItem = MarketItems(item[0], item[1], item[2])
                 market.addToMarketDisplay(marketItem)
 
-class Farm: # successful but unfinished
+class Farm: # Succesful but unfinished
     def __init__(self):
         self.land = [[f"[ {'🌱'} ]" for i in range(5)] for j in range(5)]
     
@@ -120,7 +117,7 @@ class Farm: # successful but unfinished
                 print(col, end=" ")
             print()
 
-class MainProgram: # successful but unfinished
+class MainProgram: # Succesful but unfinished
     def __init__(self):
         pass
     
