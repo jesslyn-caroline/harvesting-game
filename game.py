@@ -45,9 +45,21 @@ class Market:
         self.marketDisplay = []
     
     def displayItems(self):
+        print(f"====== Available Items in Market ======")
+        print()
+        print("="*40)
+        print("Tools")
+        print("-"*40)
         for item in self.marketDisplay:
-            if not item.soldOut:
-                print(f"{item.name} | {item.price} | {item.type}")
+            if not item.soldOut and item.type == "Tools":
+                print(f"{item.name} {item.price}")
+        print("="*40)
+        print("Seeds")
+        print("-"*40)
+        for item in self.marketDisplay:
+            if item.type == "Seeds":
+                print(f"{item.name} {item.price}")
+        print("="*40)
     
     def addToMarketDisplay(self, item):
         exist = False
@@ -67,12 +79,14 @@ class Market:
             if item.name.lower() == name:
                 exist = item
                 break
-                
+
+        print()
         if exist:
             if item.type == "Tools":
                 if user.expense(exist.price):
                     item.soldOut = True # Tool only can be bought once
                     user.addTools(exist.name)
+                    print("Purchased")
                 else:
                     print("Not enough money")
                 
@@ -80,6 +94,7 @@ class Market:
                 qty = int(input("How many seeds do you want to buy?"))
                 if user.expense(exist.price * qty):
                     user.addBackpack(exist.name, qty)
+                    print("Purchased")
                 else:
                     print("Not enough money")
         
@@ -131,28 +146,23 @@ class MainProgram: # Succesful but unfinished
     def menu(self):
         print("Menu")
         print("=" * 40)
-        print("1. Check backpack")
-        print("2. Go to Market")
-        print("3. Go to Farm")
-        print("4. Call the day")
+        print("1. Check backpack 🎒")
+        print("2. Go to Market 🛒")
+        print("3. Go to Farm 🏡")
+        print("4. Call the day 🛏️")
         print("=" * 40)
         print(f"Current Day: {user.day}")
     
     def menuOption(self):
         op = int(input("Menu Option ( 1 / 2 / 3 / 4 ): "))
         cls()
+        
         if op == 1:
             user.stats()
         
         elif op == 2:
-            print(f"1. Buy Item")
-            print(f"2. Sell Item")
-            to_do = int(input("What would you like to do? ( 1 / 2 )"))
-            if to_do == 1:
-                market.displayItems()
-                market.buyItem()
-            elif to_do == 2:
-                pass
+            market.displayItems()
+            market.buyItem()
             
         elif op == 3:
             farm.displayFarm()
@@ -160,6 +170,7 @@ class MainProgram: # Succesful but unfinished
         elif op == 4:
             print("Good job for today. Let's work harder tomorrow!")
             user.nextDay()
+            upcomingItems.validUpcomingObj()
         
         print()
 
@@ -168,10 +179,10 @@ main = MainProgram()
 farm = Farm()
 upcomingItems = UpcomingItems()
 market = Market()
+upcomingItems.validUpcomingObj()
 
 while True:
     cls()
-    upcomingItems.validUpcomingObj()
     main.menu()
     main.menuOption()
     enter = str(input("[ ENTER ] to continue"))
