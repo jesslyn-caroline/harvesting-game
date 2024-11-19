@@ -116,9 +116,8 @@ class UpcomingItems: # Succesful
             ("Hoe", 100, "Tools", 0), 
             ("Corn seeds", 20, "Seeds", 0),
             ("Sickle", 20, "Tools", 0),
-            ("Turnip seeds", 10, "Seeds", 0),
-            ("Tomato seeds", 30, "Seeds", 3),
-            ("Wheat seeds", 10, "Seeds", 3)
+            ("Tomato seeds", 30, "Seeds", 0),
+            ("Wheat seeds", 10, "Seeds", 0)
         ]
     
     def validUpcomingObj(self):
@@ -129,15 +128,39 @@ class UpcomingItems: # Succesful
 
 class Farm: # Succesful but unfinished
     def __init__(self):
-        self.land = [[f"[ {'🌱'} ]" for i in range(5)] for j in range(5)]
+        self.land = []
     
     def displayFarm(self):
         print("Farm")
         print("=" * 40)
         for row in self.land:
             for col in row:
-                print(col, end=" ")
+                if col.readyToHarvest:
+                    if col.type == "Corn":
+                        print(f"[ 🌽 ]", end=" ")
+                    elif col.type == "Tomato":
+                        print(f"[ 🍅  ]", end=" ")
+                    elif col.type == "Wheat":
+                        print(f"[ 🌾  ]", end=" ")
+                elif col.growing:
+                    print(f"[ 🌱 ]", end=" ")
+                elif not col.planted:
+                    print(f"[ 🟤 ]", end=" ")
             print()
+    
+    def waterPlant(self):
+        for row in self.land:
+            for col in row:
+                if planted:
+                    col.dayWater += 1
+
+class Square:
+    def __init__ (self):
+        self.readyToHarvest = False
+        self.planted = False
+        self.growing = False
+        self.dayWater = 0
+        self.plantType = None
 
 class MainProgram: # Succesful but unfinished
     def __init__(self):
@@ -149,12 +172,13 @@ class MainProgram: # Succesful but unfinished
         print("1. Check backpack 🎒")
         print("2. Go to Market 🛒")
         print("3. Go to Farm 🏡")
-        print("4. Call the day 🛏️")
+        print("4. Sell crops")
+        print("5. Call the day 🛏️")
         print("=" * 40)
         print(f"Current Day: {user.day}")
     
     def menuOption(self):
-        op = int(input("Menu Option ( 1 / 2 / 3 / 4 ): "))
+        op = int(input("Menu Option ( 1 / 2 / 3 / 4 / 5 ): "))
         cls()
         if op == 1:
             user.stats()
@@ -165,26 +189,31 @@ class MainProgram: # Succesful but unfinished
             
         elif op == 3:
             farm.displayFarm()
-            
+        
         elif op == 4:
+            pass
+        
+        elif op == 5:
             print("Good job for today. Let's work harder tomorrow!")
             user.nextDay()
             upcomingItems.validUpcomingObj()
         
         print()
 
-class Square:
-    def __init__ (self):
-        self.planted = False
-        self.dayStartPlant = None
-        self.dayWater = 0
-        self.harvest = False
 
 user = User()
 main = MainProgram()
 farm = Farm()
 upcomingItems = UpcomingItems()
 market = Market()
+
+square = Square() # For making farm square
+for i in range (5):
+    row = []
+    for j in range (5):
+        row.append(square)
+    farm.land.append(row)
+
 upcomingItems.validUpcomingObj()
 
 while True:
