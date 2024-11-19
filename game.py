@@ -11,7 +11,7 @@ class User:
         self.day = 0
         self.money = 500
         self.tools = []
-        self.backpack = []
+        self.backpack = dict() #Storing seeds or crops
     
     def nextDay(self):
         self.day += 1
@@ -29,8 +29,10 @@ class User:
     def addTools(self, tool):
         self.tools.append(tool)
         
-    def addBackpack(self, item):  # need to be changed
-        self.backpack.append(item)
+    def addBackpack(self, item, qty):  # need to be changed
+        if not self.backpack.get(item):
+            self.backpack[item] = 0
+        self.backpack[item] += qty
     
     def stats(self):
         print(f"Money: {self.money}")
@@ -75,7 +77,7 @@ class Market:
             elif item.type == "Seeds":
                 qty = int(input("How many seeds do you want to buy?"))
                 if user.expense(exist.price * qty):
-                    user.addBackpack([exist.name, qty])
+                    user.addBackpack(exist.name, qty)
                 else:
                     print("Not enough money")
 
