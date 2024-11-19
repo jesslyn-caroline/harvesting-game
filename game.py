@@ -131,8 +131,6 @@ class Farm: # Succesful but unfinished
         self.land = []
     
     def displayFarm(self):
-        print("Farm")
-        print("=" * 40)
         for row in self.land:
             for col in row:
                 if col.readyToHarvest:
@@ -148,7 +146,7 @@ class Farm: # Succesful but unfinished
                     print(f"[ 🟤 ]", end=" ")
             print()
     
-    def planting(self):
+    def plant(self):
         pass
     
     def harvest(self):
@@ -181,7 +179,7 @@ class MainProgram: # Succesful but unfinished
         print("1. Check backpack 🎒")
         print("2. Go to Market 🛒")
         print("3. Go to Farm 🏡")
-        print("4. Sell crops")
+        print("4. Sell crops 💰")
         print("5. Call the day 🛏️")
         print("=" * 40)
         print(f"Current Day: {user.day}")
@@ -197,7 +195,32 @@ class MainProgram: # Succesful but unfinished
             market.buyItem()
             
         elif op == 3:
+            print("Farm")
+            print("=" * 40)
             farm.displayFarm()
+            print("="*40)
+            print("1. Plant")
+            print("2. Water")
+            print("3. Harvest")
+            print("4. Remove")
+            print("5. Nothing")
+            print("="*40)
+            to_do = str(input("What do you want to do? "))
+            
+            if to_do == 1:
+                farm.plant()
+            
+            elif to_do == 2:
+                farm.water()
+            
+            elif to_do == 3:
+                farm.harvest()
+            
+            elif to_do == 4:
+                farm.removePlant()
+            
+            elif to_do == 5:
+                pass
         
         elif op == 4:
             pass
