@@ -156,7 +156,6 @@ class MainProgram: # Succesful but unfinished
     def menuOption(self):
         op = int(input("Menu Option ( 1 / 2 / 3 / 4 ): "))
         cls()
-        
         if op == 1:
             user.stats()
         
@@ -173,6 +172,13 @@ class MainProgram: # Succesful but unfinished
             upcomingItems.validUpcomingObj()
         
         print()
+
+class Square:
+    def __init__ (self):
+        self.planted = False
+        self.dayStartPlant = None
+        self.dayWater = 0
+        self.harvest = False
 
 user = User()
 main = MainProgram()
