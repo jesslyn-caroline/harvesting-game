@@ -59,7 +59,9 @@ class Market:
         if not exist:
             self.marketDisplay.append(item)
     
-    def buyItem(self, name):
+    def buyItem(self):
+        name = str(input("What do you want to buy?")).lower()
+        
         exist = False
         for item in self.marketDisplay:
             if item.name.lower() == name:
@@ -80,6 +82,9 @@ class Market:
                     user.addBackpack(exist.name, qty)
                 else:
                     print("Not enough money")
+        
+        else:
+            print(f"Item not found")
 
 class MarketItems: # Succesful
     def __init__(self, name, price, type):
@@ -145,8 +150,7 @@ class MainProgram: # Succesful but unfinished
             to_do = int(input("What would you like to do? ( 1 / 2 )"))
             if to_do == 1:
                 market.displayItems()
-                itemToBuy = str(input("What do you want to buy?")).lower()
-                market.buyItem(itemToBuy)
+                market.buyItem()
             elif to_do == 2:
                 pass
             
