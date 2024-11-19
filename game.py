@@ -148,6 +148,15 @@ class Farm: # Succesful but unfinished
                     print(f"[ 🟤 ]", end=" ")
             print()
     
+    def planting(self):
+        pass
+    
+    def harvest(self):
+        pass
+    
+    def removePlant(self):
+        pass
+    
     def waterPlant(self):
         for row in self.land:
             for col in row:
